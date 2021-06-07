@@ -1,0 +1,249 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <style>
+
+        .product01{
+            border: 1px solid;
+            float: left;
+            height: auto;
+            padding: 20px;
+
+        }
+        #launchYear{
+            background: #ccc;
+            border-radius: 5px;
+
+        }
+    </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <h3>SpaceX Launch Programs</h3>
+            <h5 >filters</h5>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">      
+      <div class="col-2">
+        <p id="launchYear" class="text-center mx-1 ">launch Year</p>   
+        <div class="col-12 my-2  btn-group "  >
+          <a href="#"><button type="button" class="btn btn-success mx-2" onclick="getdata(2006)">2006</button></a>
+          <a href="#"><button type="button" class="btn btn-success" onclick="getdata(2007)">2007</button></a>
+      </div>
+      <div class="col-12 my-2 btn-group "  >
+          <a href="#"><button type="button" class="btn btn-success mx-2">2008</button></a>
+          <a href="#"><button type="button" class="btn btn-success">2009</button></a>
+      </div>
+      <div class="col-12 my-2 btn-group "  >
+          <a href="#"><button type="button" class="btn btn-success mx-2">2010</button></a>
+          <a href="#"><button type="button" class="btn btn-success">2011</button></a>
+      </div>
+      <div class="col-12 my-2 btn-group "  >
+          <a href="#"><button type="button" class="btn btn-success mx-2">2012</button></a>
+          <a href="#"><button type="button" class="btn btn-success">2013</button></a>
+      </div>
+      <div class="col-12 my-2 btn-group "  >
+          <a href="#"><button type="button" class="btn btn-success mx-2">2014</button></a>
+          <a href="#"><button type="button" class="btn btn-success">2015</button></a>
+      </div>
+      <div class="col-12 my-2 btn-group "  >
+          <a href="#"><button type="button" class="btn btn-success mx-2">2016</button></a>
+          <a href="#"><button type="button" class="btn btn-success">2017</button></a>
+      </div>
+      <div class="col-12 my-2 btn-group "  >
+          <a href="#"><button type="button" class="btn btn-success mx-2">2018</button></a>
+          <a href="#"><button type="button" class="btn btn-success">2019</button></a>
+      </div>
+      <div class="col-12 my-2 btn-group "  >
+          <a href="#"><button type="button" class="btn btn-success mx-2">2020</button></a>
+          
+      </div>
+      <p id="lunchYear" class="text-center mx-1 ">Successfull Launch</p>
+      <div class="col-12 my-2 btn-group "  >
+          <a href="#"><button type="button" class="btn btn-success mx-2">true</button></a>
+          <a href="#"><button type="button" class="btn btn-success">false</button></a>
+      </div>
+      <p id="lunchYear" class="text-center mx-1 ">Successfull Landing</p>
+      <div class="col-12 my-2 btn-group "  >
+          <a href="#"><button type="button" class="btn btn-success mx-2">true</button></a>
+          <a href="#"><button type="button" class="btn btn-success">false</button></a>
+      </div>       
+      </div>
+      <div id="mlist" class="col-10 row">
+        
+      </div>                
+    </div>          
+  </div>         
+ 
+        
+  <script>
+      function getdata() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          var obj = JSON.parse(this.responseText); 
+          console.log(obj);
+
+          document.querySelector("#mlist").innerHTML="";      
+          
+          for (var i=0;i<obj.length;i++){  
+            var html='';              
+            html+= '<div class="col-lg-3 mb-2 product">';
+            html+= '<div class="card p-1" style="width:250px">';
+            html+= '<img class="card-img-top" src="'+obj[i].links.mission_patch+'" alt="Card image" style="width:100%">';
+            html+= '<div class="card-body">';
+            html+= '<h6 class="card-title text-primary">'+obj[i].mission_name+" # "+obj[i].flight_number+'</h6>';
+            html+='<h6 class="card-title">Launch Year:'+obj[i].launch_year+' </h6>';
+            html+='<h6 class="card-title text-sm">Successfull Launch: '+obj[i].launch_success+'</h6>';
+      //        html+='<h6 class="card-title">Successfull Land:'+obj[i].launch_success+' </h6>';                  
+            html+='</div></div></div>';
+
+            console.log(html);
+
+            result=document.querySelector("#mlist");
+            result.innerHTML+=html;        
+                                }      
+          
+        }
+      };
+
+      xhttp.open("GET", "https://api.spacexdata.com/v3/launches?limit=48", true);
+      xhttp.send();
+
+      }
+        </script>
+    
+</body>
+</html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <style>
+
+        .product01{
+            border: 1px solid;
+            float: left;
+            height: auto;
+            padding: 20px;
+
+        }
+        #lunchYear{
+            background: #ccc;
+            border-radius: 5px;
+
+        }
+    </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <h3>SpaceX Launch Programs</h3>
+            <h5 >filters</h5>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">      
+      <div class="col-2">
+        <p id="launchYear" class="text-center mx-1 ">launch Year</p>   
+        <div class="col-12 my-2  btn-group "  >
+          <a href="#"><button type="button" class="btn btn-success mx-2" onclick="getdata(2006)">2006</button></a>
+          <a href="#"><button type="button" class="btn btn-success" onclick="getdata(2007)">2007</button></a>
+      </div>
+      <div class="col-12 my-2 btn-group "  >
+          <a href="#"><button type="button" class="btn btn-success mx-2">2008</button></a>
+          <a href="#"><button type="button" class="btn btn-success">2009</button></a>
+      </div>
+      <div class="col-12 my-2 btn-group "  >
+          <a href="#"><button type="button" class="btn btn-success mx-2">2010</button></a>
+          <a href="#"><button type="button" class="btn btn-success">2011</button></a>
+      </div>
+      <div class="col-12 my-2 btn-group "  >
+          <a href="#"><button type="button" class="btn btn-success mx-2">2012</button></a>
+          <a href="#"><button type="button" class="btn btn-success">2013</button></a>
+      </div>
+      <div class="col-12 my-2 btn-group "  >
+          <a href="#"><button type="button" class="btn btn-success mx-2">2014</button></a>
+          <a href="#"><button type="button" class="btn btn-success">2015</button></a>
+      </div>
+      <div class="col-12 my-2 btn-group "  >
+          <a href="#"><button type="button" class="btn btn-success mx-2">2016</button></a>
+          <a href="#"><button type="button" class="btn btn-success">2017</button></a>
+      </div>
+      <div class="col-12 my-2 btn-group "  >
+          <a href="#"><button type="button" class="btn btn-success mx-2">2018</button></a>
+          <a href="#"><button type="button" class="btn btn-success">2019</button></a>
+      </div>
+      <div class="col-12 my-2 btn-group "  >
+          <a href="#"><button type="button" class="btn btn-success mx-2">2020</button></a>
+          
+      </div>
+      <p id="launchYear" class="text-center mx-1 ">Successfull Launch</p>
+      <div class="col-12 my-2 btn-group "  >
+          <a href="#"><button type="button" class="btn btn-success mx-2">true</button></a>
+          <a href="#"><button type="button" class="btn btn-success">false</button></a>
+      </div>
+      <p id="launchYear" class="text-center mx-1 ">Successfull Landing</p>
+      <div class="col-12 my-2 btn-group "  >
+          <a href="#"><button type="button" class="btn btn-success mx-2">true</button></a>
+          <a href="#"><button type="button" class="btn btn-success">false</button></a>
+      </div>       
+      </div>
+      <div id="mlist" class="col-10 row">
+        
+      </div>                
+    </div>          
+  </div>         
+ 
+        
+  <script>
+      function getdata() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          var obj = JSON.parse(this.responseText); 
+          console.log(obj);
+
+          document.querySelector("#mlist").innerHTML="";      
+          
+          for (var i=0;i<obj.length;i++){  
+            var html='';              
+            html+= '<div class="col-lg-3 mb-2 product">';
+            html+= '<div class="card p-1" style="width:250px">';
+            html+= '<img class="card-img-top" src="'+obj[i].links.mission_patch+'" alt="Card image" style="width:100%">';
+            html+= '<div class="card-body">';
+            html+= '<h6 class="card-title text-primary">'+obj[i].mission_name+" # "+obj[i].flight_number+'</h6>';
+            html+='<h6 class="card-title">Launch Year:'+obj[i].launch_year+' </h6>';
+            html+='<h6 class="card-title text-sm">Successfull Launch: '+obj[i].launch_success+'</h6>';
+      //        html+='<h6 class="card-title">Successfull Land:'+obj[i].launch_success+' </h6>';                  
+            html+='</div></div></div>';
+
+            console.log(html);
+
+            result=document.querySelector("#mlist");
+            result.innerHTML+=html;        
+                                }      
+          
+        }
+      };
+
+      xhttp.open("GET", "https://api.spacexdata.com/v3/launches?limit=48", true);
+      xhttp.send();
+
+      }
+        </script>
+    
+</body>
+</html>
